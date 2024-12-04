@@ -23,6 +23,6 @@ data class Marker(
     val id: Int = 0,
     val name: String,
     // Coordenadas geográficas
-    val location: String = "",
+    val location: Pair<String, String>,
     val markerTypeId: Int
 )
