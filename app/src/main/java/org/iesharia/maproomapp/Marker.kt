@@ -13,7 +13,7 @@ import androidx.room.ForeignKey
             // Referencia en la tabla MarkerType
             parentColumns = ["id"],
             // Referencia en esta tabla
-            childColumns = ["markTypeId"],
+            childColumns = ["markerTypeId"],
         )
     ]
 )
@@ -24,5 +24,5 @@ data class Marker(
     val name: String,
     // Coordenadas geográficas
     val location: String = "",
-    val MarkerTypeId: Int
+    val markerTypeId: Int
 )
