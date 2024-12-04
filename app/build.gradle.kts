@@ -41,6 +41,9 @@ android {
 }
 
 dependencies {
+    // Osmdroid (mapas)
+    implementation(libs.osmdroid.android)
+
     // Room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
