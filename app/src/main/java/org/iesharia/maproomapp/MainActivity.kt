@@ -43,7 +43,6 @@ val GoogleSat: OnlineTileSourceBase = object : XYTileSource(
         "https://mt1.google.com",
         "https://mt2.google.com",
         "https://mt3.google.com",
-
         )
 ) {
     override fun getTileURLString(pTileIndex: Long): String {
@@ -93,4 +92,29 @@ fun MyMapView(modifier: Modifier = Modifier) {
     val depokMarkerState = rememberMarkerState(
         geoPoint = GeoPoint(28.957473, -13.554514)
     )
+
+
+    OpenStreetMap(
+        modifier = Modifier.fillMaxSize(),
+        cameraState = cameraState,
+        properties = mapProperties // add properties
+    ){
+        // add marker here
+        Marker(
+            state = depokMarkerState, // add marker state
+            title = "Arrecife Gran Hotel",
+            snippet = "click"
+        ){
+            // create info window node
+            Column(
+                modifier = Modifier
+                    .size(100.dp)
+                    .background(color = Color.Gray, shape = RoundedCornerShape(4.dp))
+            ) {
+                // setup content of info window
+                Text(text = it.title)
+                Text(text = it.snippet, fontSize = 10.sp)
+            }
+        }
+    }
 }
