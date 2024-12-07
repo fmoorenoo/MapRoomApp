@@ -50,6 +50,8 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     ksp (libs.androidx.room.compiler.v250)
 
+    // ViewModel
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
