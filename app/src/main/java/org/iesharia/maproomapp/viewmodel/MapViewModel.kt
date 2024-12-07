@@ -1,8 +1,11 @@
 package org.iesharia.maproomapp.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import org.iesharia.maproomapp.model.Marker
 import org.iesharia.maproomapp.model.MarkerDao
 import org.iesharia.maproomapp.model.MarkerTypeDao
@@ -24,4 +27,17 @@ class MapViewModel(
     // Misma lógica que para cargar marcadores
     private val _markerTypes = MutableStateFlow<Map<Int, String>>(emptyMap())
     val markerTypes: StateFlow<Map<Int, String>> = _markerTypes
+
+
+    // Cargar marcadores
+    init {
+        loadMarkers()
+    }
+
+    private fun loadMarkers() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val markerList = markerDao.getAllMarkers()
+            _markers.value = markerList
+        }
+    }
 }
