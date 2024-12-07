@@ -6,7 +6,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Marker::class, MarkerType::class], version = 1)
+@Database(entities = [Marker::class, MarkerType::class], version = 4)
 abstract class MapDatabase : RoomDatabase() {
 
     abstract fun markerDao(): MarkerDao
