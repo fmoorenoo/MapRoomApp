@@ -2,6 +2,7 @@ package org.iesharia.maproomapp.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -47,6 +48,33 @@ class MapViewModel(
             val types = markerTypeDao.getAllMarkerTypes()
             // Convertimos la lista de tipos de marcadores en un mapa con cada ID asociado a su nombre
             _markerTypes.value = types.associate { it.id to it.name }
+        }
+    }
+
+
+    // Función para insertar nuevos marcadores
+    private fun insertMarkers() {
+        // Lista de marcadores a añadir
+        val markers = listOf(
+            Marker(
+                name = "Marymount School",
+                latitude = "48.89317802547966",
+                longitude = "2.2698783879509024",
+                markerTypeId = 3 // Tipo: Escuela
+            ),
+            Marker(
+                name = "Versace",
+                latitude = "48.86769195324431",
+                longitude = "2.3068578896782213",
+                markerTypeId = 4 // Tipo: Tienda
+            ),
+        )
+
+        // Insertar los marcadores en un hilo diferente al de la interfaz
+        CoroutineScope(Dispatchers.IO).launch {
+            markers.forEach { marker ->
+                markerDao.insert(marker)
+            }
         }
     }
 }
