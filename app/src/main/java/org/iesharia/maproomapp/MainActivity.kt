@@ -3,6 +3,8 @@ package org.iesharia.maproomapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import org.iesharia.maproomapp.model.MapDatabase
+import org.iesharia.maproomapp.view.MainApp
 
 
 class MainActivity : ComponentActivity() {

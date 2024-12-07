@@ -1,4 +1,4 @@
-package org.iesharia.maproomapp
+package org.iesharia.maproomapp.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
