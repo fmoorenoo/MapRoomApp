@@ -1,4 +1,4 @@
-package org.iesharia.maproomapp
+package org.iesharia.maproomapp.model
 
 import androidx.room.*
 
