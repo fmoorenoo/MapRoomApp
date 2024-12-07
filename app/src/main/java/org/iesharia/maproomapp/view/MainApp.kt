@@ -3,6 +3,7 @@ package org.iesharia.maproomapp.view
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -12,8 +13,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.utsman.osmandcompose.DefaultMapProperties
@@ -83,18 +87,36 @@ fun MainApp(mapViewModel: MapViewModel) {
             // Obtener el nombre del tipo de marcador desde el mapa
             val markerTypeName = markerTypes[marker.markerTypeId] ?: "Sin Tipo"
 
+
             Marker(
                 state = markerState,
                 title = marker.name,
-                snippet = markerTypeName
+                snippet = markerTypeName,
             ) {
                 Column(
                     modifier = Modifier
-                        .size(100.dp)
-                        .background(color = Color.Gray, shape = RoundedCornerShape(4.dp))
+                        .size(150.dp)
+                        .background(
+                            color = Color(0xFF6200EE),
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                        .padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = it.title)
-                    Text(text = it.snippet, fontSize = 10.sp)
+                    Text(
+                        text = it.title,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 22.sp,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    )
+                    Text(
+                        text = it.snippet,
+                        color = Color(0xFFFFC107),
+                        fontSize = 20.sp,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
                 }
             }
         }
