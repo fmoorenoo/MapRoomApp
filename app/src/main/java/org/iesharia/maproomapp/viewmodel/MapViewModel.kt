@@ -29,15 +29,24 @@ class MapViewModel(
     val markerTypes: StateFlow<Map<Int, String>> = _markerTypes
 
 
-    // Cargar marcadores
+    // Cargar marcadores y sus tipos
     init {
         loadMarkers()
+        loadMarkerTypes()
     }
 
     private fun loadMarkers() {
         viewModelScope.launch(Dispatchers.IO) {
             val markerList = markerDao.getAllMarkers()
             _markers.value = markerList
+        }
+    }
+
+    private fun loadMarkerTypes() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val types = markerTypeDao.getAllMarkerTypes()
+            // Convertimos la lista de tipos de marcadores en un mapa con cada ID asociado a su nombre
+            _markerTypes.value = types.associate { it.id to it.name }
         }
     }
 }
