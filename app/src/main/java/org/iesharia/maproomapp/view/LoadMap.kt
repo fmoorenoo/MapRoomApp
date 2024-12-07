@@ -22,6 +22,7 @@ import com.utsman.osmandcompose.OpenStreetMap
 import com.utsman.osmandcompose.ZoomButtonVisibility
 import com.utsman.osmandcompose.rememberCameraState
 import com.utsman.osmandcompose.rememberMarkerState
+import org.iesharia.maproomapp.model.Marker
 import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase
 import org.osmdroid.tileprovider.tilesource.XYTileSource
 import org.osmdroid.util.GeoPoint
@@ -45,19 +46,17 @@ val GoogleSat: OnlineTileSourceBase = object : XYTileSource(
 }
 
 @Composable
-fun LoadMap(modifier: Modifier = Modifier) {
+fun LoadMap(markers: List<Marker>) {
     // Localización inicial del mapa
     val cameraState = rememberCameraState {
         geoPoint = GeoPoint(48.857685757833174, 2.3512283587149376)
         zoom = 17.0
     }
 
-    // define properties with remember with default value
     var mapProperties by remember {
         mutableStateOf(DefaultMapProperties)
     }
 
-    // setup mapProperties in side effect
     SideEffect {
         mapProperties = mapProperties
             .copy(tileSources = GoogleSat)
@@ -65,32 +64,33 @@ fun LoadMap(modifier: Modifier = Modifier) {
             .copy(zoomButtonVisibility = ZoomButtonVisibility.NEVER)
     }
 
-    // define marker state
-    val depokMarkerState = rememberMarkerState(
-        geoPoint = GeoPoint(28.957473, -13.554514)
-    )
-
-
     OpenStreetMap(
         modifier = Modifier.fillMaxSize(),
         cameraState = cameraState,
-        properties = mapProperties // add properties
-    ){
-        // add marker here
-        Marker(
-            state = depokMarkerState, // add marker state
-            title = "Arrecife Gran Hotel",
-            snippet = "click"
-        ){
-            // create info window node
-            Column(
-                modifier = Modifier
-                    .size(100.dp)
-                    .background(color = Color.Gray, shape = RoundedCornerShape(4.dp))
+        properties = mapProperties
+    ) {
+        // Agregar marcadores desde la base de datos
+        markers.forEach { marker ->
+            val markerState = rememberMarkerState(
+                geoPoint = GeoPoint(
+                    marker.latitude.toDouble(),
+                    marker.longitude.toDouble()
+                )
+            )
+
+            Marker(
+                state = markerState,
+                title = marker.name,
+                snippet = marker.markerTypeId.toString()
             ) {
-                // setup content of info window
-                Text(text = it.title)
-                Text(text = it.snippet, fontSize = 10.sp)
+                Column(
+                    modifier = Modifier
+                        .size(100.dp)
+                        .background(color = Color.Gray, shape = RoundedCornerShape(4.dp))
+                ) {
+                    Text(text = it.title)
+                    Text(text = it.snippet, fontSize = 10.sp)
+                }
             }
         }
     }
