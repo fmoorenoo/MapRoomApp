@@ -92,7 +92,17 @@ fun MainApp(mapViewModel: MapViewModel) {
 
 
             val context = LocalContext.current
-            val drawable = ContextCompat.getDrawable(context, R.drawable.food_marker)
+
+            // Elegir el icono según el tipo de marcador
+            val markerImage = when (marker.markerTypeId) {
+                1 -> R.drawable.monument_marker
+                2 -> R.drawable.food_marker
+                3 -> R.drawable.school_marker
+                4 -> R.drawable.shop_marker
+                else -> R.drawable.default_marker
+            }
+
+            val drawable = ContextCompat.getDrawable(context, markerImage)
 
             Marker(
                 state = markerState,
