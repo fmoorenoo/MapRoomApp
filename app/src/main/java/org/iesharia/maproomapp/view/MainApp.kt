@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -90,7 +91,6 @@ fun MainApp(mapViewModel: MapViewModel) {
             // Obtener el nombre del tipo de marcador desde el mapa
             val markerTypeName = markerTypes[marker.markerTypeId] ?: "Sin Tipo"
 
-
             val context = LocalContext.current
 
             // Elegir el icono según el tipo de marcador
@@ -112,13 +112,15 @@ fun MainApp(mapViewModel: MapViewModel) {
             ) {
                 Column(
                     modifier = Modifier
+                        .widthIn(0.dp, 250.dp)
                         .background(
-                            color = Color(0xBA000000),
+                            color = Color(0xD0000000),
                             shape = RoundedCornerShape(8.dp)
                         )
                         .padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+                    // Título del marcador
                     Text(
                         text = it.title,
                         color = Color.White,
@@ -127,12 +129,25 @@ fun MainApp(mapViewModel: MapViewModel) {
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(bottom = 8.dp)
                     )
+
+                    // Tipo de marcador
                     Text(
                         text = it.snippet,
                         color = Color(0xFFFFC107),
                         fontSize = 20.sp,
-                        modifier = Modifier.padding(top = 4.dp)
+                        modifier = Modifier.padding(top = 4.dp, bottom = 8.dp)
                     )
+
+                    // Descripción (si existe)
+                    if (!marker.description.isNullOrEmpty()) {
+                        Text(
+                            text = marker.description,
+                            color = Color.LightGray,
+                            fontSize = 18.sp,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(top = 8.dp)
+                        )
+                    }
                 }
             }
         }
