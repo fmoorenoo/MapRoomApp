@@ -22,7 +22,11 @@ import com.utsman.osmandcompose.OpenStreetMap
 import com.utsman.osmandcompose.ZoomButtonVisibility
 import com.utsman.osmandcompose.rememberCameraState
 import com.utsman.osmandcompose.rememberMarkerState
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.iesharia.maproomapp.model.Marker
+import org.iesharia.maproomapp.model.MarkerTypeDao
 import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase
 import org.osmdroid.tileprovider.tilesource.XYTileSource
 import org.osmdroid.util.GeoPoint
@@ -46,7 +50,7 @@ val GoogleSat: OnlineTileSourceBase = object : XYTileSource(
 }
 
 @Composable
-fun LoadMap(markers: List<Marker>) {
+fun LoadMap(markers: List<Marker>, markerTypeDao: MarkerTypeDao) {
     // Localización inicial del mapa
     val cameraState = rememberCameraState {
         geoPoint = GeoPoint(48.86694609924531, 2.310372951354165)
@@ -77,11 +81,16 @@ fun LoadMap(markers: List<Marker>) {
                     marker.longitude.toDouble()
                 )
             )
+            var markerTypeName : String = ""
+            // Obtener el nombre del tipo de marcador
+            CoroutineScope(Dispatchers.IO).launch {
+                markerTypeName = markerTypeDao.getMarkTypeById(marker.markerTypeId)?.name ?: "Sin Tipo"
+            }
 
             Marker(
                 state = markerState,
                 title = marker.name,
-                snippet = marker.markerTypeId.toString()
+                snippet = markerTypeName
             ) {
                 Column(
                     modifier = Modifier
