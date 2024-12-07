@@ -76,7 +76,7 @@ fun MainApp(mapViewModel: MapViewModel) {
         mapProperties = mapProperties
             .copy(tileSources = GoogleSat)
             .copy(isEnableRotationGesture = true)
-            .copy(zoomButtonVisibility = ZoomButtonVisibility.NEVER)
+            .copy(zoomButtonVisibility = ZoomButtonVisibility.SHOW_AND_FADEOUT)
 
         // Agregar marcadores desde los datos del ViewModel
         markers.forEach { marker ->
@@ -112,9 +112,8 @@ fun MainApp(mapViewModel: MapViewModel) {
             ) {
                 Column(
                     modifier = Modifier
-                        .size(150.dp)
                         .background(
-                            color = Color(0xFF6200EE),
+                            color = Color(0xBA000000),
                             shape = RoundedCornerShape(8.dp)
                         )
                         .padding(16.dp),
