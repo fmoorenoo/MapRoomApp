@@ -1,5 +1,6 @@
 package org.iesharia.maproomapp.view
 
+import org.iesharia.maproomapp.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,10 +17,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
 import com.utsman.osmandcompose.DefaultMapProperties
 import com.utsman.osmandcompose.Marker
 import com.utsman.osmandcompose.OpenStreetMap
@@ -88,10 +91,14 @@ fun MainApp(mapViewModel: MapViewModel) {
             val markerTypeName = markerTypes[marker.markerTypeId] ?: "Sin Tipo"
 
 
+            val context = LocalContext.current
+            val drawable = ContextCompat.getDrawable(context, R.drawable.food_marker)
+
             Marker(
                 state = markerState,
                 title = marker.name,
                 snippet = markerTypeName,
+                icon = drawable
             ) {
                 Column(
                     modifier = Modifier
