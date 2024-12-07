@@ -25,5 +25,6 @@ data class Marker(
     // Coordenadas geográficas
     val latitude: String,
     val longitude: String,
+    val description: String? = null,
     val markerTypeId: Int
 )
