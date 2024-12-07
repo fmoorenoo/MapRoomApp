@@ -61,17 +61,20 @@ class MainActivity : ComponentActivity() {
         val markers = listOf(
             Marker(
                 name = "Torre Eiffel",
-                location = "48.86169201033145, 2.293716143694126",
+                latitude = "48.86169201033145",
+                longitude = "2.293716143694126",
                 markerTypeId = 3 // Tipo: Monumento
             ),
             Marker(
                 name = "Arco del Triunfo",
-                location = "48.877500049408596, 2.295089433250181",
+                latitude = "48.877500049408596",
+                longitude = "2.295089433250181",
                 markerTypeId = 3 // Tipo: Monumento
             ),
             Marker(
                 name = "Tasca",
-                location = "48.85452329722391, 2.296511294801642",
+                latitude = "48.85452329722391",
+                longitude = "2.296511294801642",
                 markerTypeId = 2 // Tipo: Comida
             )
         )
