@@ -9,6 +9,8 @@ import androidx.room.RoomDatabase
 @Database(entities = [Marker::class, MarkerType::class], version = 1)
 abstract class MapDatabase : RoomDatabase() {
 
+    abstract fun markerDao(): MarkerDao
+    abstract fun markerTypeDao(): MarkerTypeDao
 
     companion object {
         @Volatile
