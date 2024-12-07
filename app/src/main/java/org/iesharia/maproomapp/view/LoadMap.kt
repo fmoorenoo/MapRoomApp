@@ -49,8 +49,8 @@ val GoogleSat: OnlineTileSourceBase = object : XYTileSource(
 fun LoadMap(markers: List<Marker>) {
     // Localización inicial del mapa
     val cameraState = rememberCameraState {
-        geoPoint = GeoPoint(48.857685757833174, 2.3512283587149376)
-        zoom = 17.0
+        geoPoint = GeoPoint(48.86694609924531, 2.310372951354165)
+        zoom = 15.0
     }
 
     var mapProperties by remember {
