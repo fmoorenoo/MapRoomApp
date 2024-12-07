@@ -46,10 +46,10 @@ val GoogleSat: OnlineTileSourceBase = object : XYTileSource(
 
 @Composable
 fun LoadMap(modifier: Modifier = Modifier) {
-    // define camera state
+    // Localización inicial del mapa
     val cameraState = rememberCameraState {
-        geoPoint = GeoPoint(28.957473, -13.554514)
-        zoom = 17.0 // optional, default is 5.0
+        geoPoint = GeoPoint(48.857685757833174, 2.3512283587149376)
+        zoom = 17.0
     }
 
     // define properties with remember with default value
