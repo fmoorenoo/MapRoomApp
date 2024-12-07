@@ -22,6 +22,9 @@ class MainActivity : ComponentActivity() {
         // Inicializar la base de datos
         database = MapDatabase.getDatabase(this)
 
+        // DAO para los tipos de marcadores
+        val markerTypeDao = database.markerTypeDao()
+
         // Lista mutable para almacenar los marcadores
         val markers = mutableStateListOf<Marker>()
 
@@ -33,7 +36,7 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            MainApp(database, markers)
+            MainApp(database, markers, markerTypeDao)
         }
     }
 }
