@@ -3,6 +3,7 @@ package org.iesharia.maproomapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.mutableStateListOf
 import org.iesharia.maproomapp.model.MapDatabase
 import org.iesharia.maproomapp.view.MainApp
 import kotlinx.coroutines.CoroutineScope
@@ -21,70 +22,18 @@ class MainActivity : ComponentActivity() {
         // Inicializar la base de datos
         database = MapDatabase.getDatabase(this)
 
-        // Insertar los tipos de marcadores en la base de datos
-        // insertMarkerTypes()
+        // Lista mutable para almacenar los marcadores
+        val markers = mutableStateListOf<Marker>()
 
-        // Insertar marcadores en la base de datos
-        // insertMarkers()
+        // Obtener los marcadores de la base de datos
+        CoroutineScope(Dispatchers.IO).launch {
+            val markerDao = database.markerDao()
+            val dbMarkers = markerDao.getAllMarkers()
+            markers.addAll(dbMarkers)
+        }
 
         setContent {
-            MainApp(database)
+            MainApp(database, markers)
         }
     }
-
-
-    // Función para insertar tipos de marcadores
-    /*
-    private fun insertMarkerTypes() {
-        val markerTypeDao = database.markerTypeDao()
-        val markerTypes = listOf(
-            MarkerType(name = "Ocio"),
-            MarkerType(name = "Comida"),
-            MarkerType(name = "Monumento"),
-            MarkerType(name = "Otro")
-        )
-
-        // Insertar los tipos de marcadores en un hilo diferente al de la interfaz
-        CoroutineScope(Dispatchers.IO).launch {
-            markerTypes.forEach { markerType ->
-                markerTypeDao.insertMarkerType(markerType)
-            }
-        }
-    }
-
-
-    // Función para insertar marcadores
-    private fun insertMarkers() {
-        val markerDao = database.markerDao()
-
-        // Lista de marcadores a añadir
-        val markers = listOf(
-            Marker(
-                name = "Torre Eiffel",
-                latitude = "48.86169201033145",
-                longitude = "2.293716143694126",
-                markerTypeId = 3 // Tipo: Monumento
-            ),
-            Marker(
-                name = "Arco del Triunfo",
-                latitude = "48.877500049408596",
-                longitude = "2.295089433250181",
-                markerTypeId = 3 // Tipo: Monumento
-            ),
-            Marker(
-                name = "Tasca",
-                latitude = "48.85452329722391",
-                longitude = "2.296511294801642",
-                markerTypeId = 2 // Tipo: Comida
-            )
-        )
-
-        // Insertar los marcadores en un hilo diferente al de la interfaz
-        CoroutineScope(Dispatchers.IO).launch {
-            markers.forEach { marker ->
-                markerDao.insert(marker)
-            }
-        }
-    }
-    */
 }
