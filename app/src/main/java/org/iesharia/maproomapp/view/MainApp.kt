@@ -2,11 +2,20 @@ package org.iesharia.maproomapp.view
 
 import org.iesharia.maproomapp.R
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -53,9 +62,7 @@ fun MainApp(mapViewModel: MapViewModel) {
         zoom = 14.5
     }
 
-    var mapProperties by remember {
-        mutableStateOf(DefaultMapProperties)
-    }
+    var mapProperties by remember { mutableStateOf(DefaultMapProperties) }
 
     OpenStreetMap(
         modifier = Modifier.fillMaxSize(),
@@ -140,8 +147,35 @@ fun MainApp(mapViewModel: MapViewModel) {
                             modifier = Modifier.padding(top = 8.dp)
                         )
                     }
+                    var expanded by remember { mutableStateOf(false) }
+
+                    // Icono para ampliar el lugar del marcador
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center,
+                    ) {
+                        IconButton(
+                            onClick = {
+                                cameraState.geoPoint = GeoPoint(
+                                    marker.latitude.toDouble(),
+                                    marker.longitude.toDouble()
+                                )
+                                cameraState.zoom = if (expanded) 13.5 else 16.0
+                                expanded = !expanded
+                            },
+                            modifier = Modifier.padding(top = 6.dp)
+                        ) {
+                            Icon(
+                                imageVector = if (!expanded) Icons.Default.Search else Icons.Default.Close,
+                                contentDescription = "Zoom",
+                                tint = if (!expanded) Color(0xFF0064FF) else Color.Red,
+                                modifier = Modifier.size(40.dp)
+                            )
+                        }
+                    }
                 }
             }
         }
     }
 }
+
