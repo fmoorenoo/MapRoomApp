@@ -1,0 +1,59 @@
+Marker(
+   name = "Marymount School",
+   latitude = "48.89317802547966",
+   longitude = "2.2698783879509024",
+   markerTypeId = 3 // Tipo: Escuela,
+   description = "Una escuela internacional reconocida por su excelencia académica"
+),
+Marker(
+   name = "Versace",
+   latitude = "48.86769195324431",
+   longitude = "2.3068578896782213",
+   markerTypeId = 4 // Tipo: Tienda,
+   description = "Tienda de lujo especializada en moda italiana de alta gama"
+),
+Marker(
+   name = "Torre Eiffel",
+   latitude = "48.86169201033145",
+   longitude = "2.293716143694126",
+   markerTypeId = 1 // Tipo: Monumento,
+   description = "El monumento más emblemático de París, construido en 1889"
+),
+Marker(
+   name = "Arco del Triunfo",
+   latitude = "48.877500049408596",
+   longitude = "2.295089433250181",
+   markerTypeId = 1 // Tipo: Monumento
+),
+Marker(
+   name = "Tasca",
+   latitude = "48.85452329722391",
+   longitude = "2.296511294801642",
+   markerTypeId = 2 // Tipo: Comida
+),
+Marker(
+   name = "Instituto Cervantes",
+   latitude = "48.870411699836666",
+   longitude = "2.299445065698495",
+   markerTypeId = 3 // Tipo: Monumento
+   description = "Academia de idiomas"
+),
+Marker(
+   name = "Pathé Wepler",
+   latitude = "48.88517186425854",
+   longitude = "2.3281124664419006",
+   markerTypeId = 6 // Tipo: Cine
+),
+Marker(
+   name = "Saint-André",
+   latitude = "48.85434628972563",
+   longitude = "2.342703683327269",
+   markerTypeId = 6 // Tipo: Cine
+),
+Marker(
+    name = "Río Sena",
+    latitude = "48.86191540799794",
+    longitude = "2.324123770450726",
+    markerTypeId = 7,
+    description = "Río que cruza todo París"
+),
