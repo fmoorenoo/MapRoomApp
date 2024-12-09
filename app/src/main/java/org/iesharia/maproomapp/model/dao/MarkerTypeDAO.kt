@@ -1,6 +1,7 @@
-package org.iesharia.maproomapp.model
+package org.iesharia.maproomapp.model.dao
 
 import androidx.room.*
+import org.iesharia.maproomapp.model.entities.MarkerType
 
 @Dao interface MarkerTypeDao {
     // Añadir tipo de marcador

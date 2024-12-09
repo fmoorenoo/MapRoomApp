@@ -1,4 +1,4 @@
-package org.iesharia.maproomapp.model
+package org.iesharia.maproomapp.model.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
