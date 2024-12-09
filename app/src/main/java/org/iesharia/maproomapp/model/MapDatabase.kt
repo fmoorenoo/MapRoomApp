@@ -5,12 +5,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import org.iesharia.maproomapp.model.dao.*
+import org.iesharia.maproomapp.model.entities.*
 
-@Database(entities = [Marker::class, MarkerType::class], version = 4)
+@Database(entities = [Marker::class, MarkerType::class, Favorite::class], version = 4)
 abstract class MapDatabase : RoomDatabase() {
 
     abstract fun markerDao(): MarkerDao
     abstract fun markerTypeDao(): MarkerTypeDao
+    abstract fun favoriteDao(): FavoriteDAO
+
 
     companion object {
         @Volatile
