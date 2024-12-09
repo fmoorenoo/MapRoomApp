@@ -35,7 +35,7 @@ Marker(
    name = "Instituto Cervantes",
    latitude = "48.870411699836666",
    longitude = "2.299445065698495",
-   markerTypeId = 3 // Tipo: Monumento
+   markerTypeId = 3, // Tipo: Monumento
    description = "Academia de idiomas"
 ),
 Marker(
@@ -57,3 +57,20 @@ Marker(
     markerTypeId = 7,
     description = "Río que cruza todo París"
 ),
+Marker(
+    name = "Medical Center Europe",
+    latitude = "48.87985375040805",
+    longitude = "2.3277286340633756",
+    markerTypeId = 5,
+),
+
+
+
+
+MarkerType(name = "Monumento"),
+MarkerType(name = "Comida"),
+MarkerType(name = "Escuela"),
+MarkerType(name = "Tienda"),
+MarkerType(name = "Salud"),
+MarkerType(name = "Cine"),
+MarkerType(name = "De interés"),
