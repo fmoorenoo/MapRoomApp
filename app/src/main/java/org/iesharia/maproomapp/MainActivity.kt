@@ -16,9 +16,10 @@ class MainActivity : ComponentActivity() {
         val database = MapDatabase.getDatabase(this)
         val markerDao = database.markerDao()
         val markerTypeDao = database.markerTypeDao()
+        val favoriteDao = database.favoriteDao()
 
         // Crear el ViewModel
-        val mapViewModel = MapViewModel(markerDao, markerTypeDao)
+        val mapViewModel = MapViewModel(markerDao, markerTypeDao, favoriteDao)
 
         setContent {
             MainApp(mapViewModel)
