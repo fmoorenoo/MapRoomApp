@@ -64,9 +64,6 @@ fun MainApp(mapViewModel: MapViewModel) {
 
     var mapProperties by remember { mutableStateOf(DefaultMapProperties) }
 
-    // Variable que almacena el id del marcador que está abierto
-    var openMarkerId by remember { mutableStateOf<Int?>(null) }
-
     OpenStreetMap(
         modifier = Modifier.fillMaxSize(),
         cameraState = cameraState,
@@ -110,77 +107,69 @@ fun MainApp(mapViewModel: MapViewModel) {
                 state = markerState,
                 title = marker.name,
                 snippet = markerTypeName,
-                icon = drawable,
-                onClick = {
-                    // Cambiar el marcador abierto
-                    openMarkerId = if (openMarkerId == marker.id) null else marker.id
-                    true
-                }
+                icon = drawable
             ) {
-                if (openMarkerId == marker.id) {
-                    Column(
-                        modifier = Modifier
-                            .widthIn(0.dp, 250.dp)
-                            .background(
-                                color = Color(0xD0000000),
-                                shape = RoundedCornerShape(8.dp)
-                            )
-                            .padding(16.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        // Título del marcador
+                Column(
+                    modifier = Modifier
+                        .widthIn(0.dp, 250.dp)
+                        .background(
+                            color = Color(0xD0000000),
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                        .padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    // Título del marcador
+                    Text(
+                        text = it.title,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 22.sp,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    )
+
+                    // Tipo de marcador
+                    Text(
+                        text = it.snippet,
+                        color = Color(0xFFFFC107),
+                        fontSize = 20.sp,
+                        modifier = Modifier.padding(top = 4.dp, bottom = 8.dp)
+                    )
+
+                    // Descripción (si existe)
+                    if (!marker.description.isNullOrEmpty()) {
                         Text(
-                            text = it.title,
-                            color = Color.White,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 22.sp,
+                            text = marker.description,
+                            color = Color.LightGray,
+                            fontSize = 18.sp,
                             textAlign = TextAlign.Center,
-                            modifier = Modifier.padding(bottom = 8.dp)
+                            modifier = Modifier.padding(top = 8.dp)
                         )
-
-                        // Tipo de marcador
-                        Text(
-                            text = it.snippet,
-                            color = Color(0xFFFFC107),
-                            fontSize = 20.sp,
-                            modifier = Modifier.padding(top = 4.dp, bottom = 8.dp)
-                        )
-
-                        // Descripción (si existe)
-                        if (!marker.description.isNullOrEmpty()) {
-                            Text(
-                                text = marker.description,
-                                color = Color.LightGray,
-                                fontSize = 18.sp,
-                                textAlign = TextAlign.Center,
-                                modifier = Modifier.padding(top = 8.dp)
-                            )
-                        }
-                        var expanded by remember { mutableStateOf(false) }
-
-                        // Icono para ampliar el lugar del marcador
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.Center,
-                        ) {
-                            IconButton(
-                                onClick = {
-                                    cameraState.geoPoint = GeoPoint(
-                                        marker.latitude.toDouble(),
-                                        marker.longitude.toDouble()
-                                    )
-                                    cameraState.zoom = if (expanded) 13.5 else 16.0
-                                    expanded = !expanded
-                                },
-                                modifier = Modifier.padding(top = 6.dp)
-                            ) {
-                                Icon(
-                                    imageVector = if (!expanded) Icons.Default.Search else Icons.Default.Close,
-                                    contentDescription = "Zoom",
-                                    tint = if (!expanded) Color(0xFF0064FF) else Color.Red,
-                                    modifier = Modifier.size(40.dp)
+                    }
+                    var expanded by remember { mutableStateOf(false) }
+                    // Icono para ampliar el lugar del marcador
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center,
+                    ) {
+                        IconButton(
+                            onClick = {
+                                cameraState.geoPoint = GeoPoint(
+                                    marker.latitude.toDouble(),
+                                    marker.longitude.toDouble()
                                 )
-                            }
+                                cameraState.zoom = if (expanded) 13.5 else 16.0
+                                expanded = !expanded
+                            },
+                            modifier = Modifier.padding(top = 6.dp)
+                        ) {
+                            Icon(
+                                imageVector = if (!expanded) Icons.Default.Search else Icons.Default.Close,
+                                contentDescription = "Zoom",
+                                tint = if (!expanded) Color(0xFF0064FF) else Color.Red,
+                                modifier = Modifier.size(40.dp)
+                            )
                         }
                     }
                 }
@@ -188,4 +177,3 @@ fun MainApp(mapViewModel: MapViewModel) {
         }
     }
 }
-
