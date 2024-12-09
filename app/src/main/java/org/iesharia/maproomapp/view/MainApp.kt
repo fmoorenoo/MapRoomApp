@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -28,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import com.utsman.osmandcompose.*
+import kotlinx.coroutines.launch
 import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase
 import org.osmdroid.tileprovider.tilesource.XYTileSource
 import org.osmdroid.util.GeoPoint
@@ -55,6 +58,7 @@ fun MainApp(mapViewModel: MapViewModel) {
     // Observar los marcadores y tipos desde el ViewModel
     val markers by mapViewModel.markers.collectAsState()
     val markerTypes by mapViewModel.markerTypes.collectAsState()
+    val favorites by mapViewModel.favorites.collectAsState()
 
     // Localización inicial del mapa
     val cameraState = rememberCameraState {
@@ -103,6 +107,9 @@ fun MainApp(mapViewModel: MapViewModel) {
 
             val drawable = ContextCompat.getDrawable(context, markerImage)
 
+            val isFavorite = favorites[marker.id] == true
+            val coroutineScope = rememberCoroutineScope()
+
             Marker(
                 state = markerState,
                 title = marker.name,
@@ -148,18 +155,18 @@ fun MainApp(mapViewModel: MapViewModel) {
                         )
                     }
                     var expanded by remember { mutableStateOf(false) }
-                    // Icono para ampliar el lugar del marcador
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center,
+                        horizontalArrangement = Arrangement.SpaceBetween
                     ) {
+                        // Icono para ampliar el lugar del marcador
                         IconButton(
                             onClick = {
                                 cameraState.geoPoint = GeoPoint(
                                     marker.latitude.toDouble(),
                                     marker.longitude.toDouble()
                                 )
-                                cameraState.zoom = if (expanded) 13.5 else 16.0
+                                cameraState.zoom = if (expanded) 14.5 else 18.0
                                 expanded = !expanded
                             },
                             modifier = Modifier.padding(top = 6.dp)
@@ -168,7 +175,23 @@ fun MainApp(mapViewModel: MapViewModel) {
                                 imageVector = if (!expanded) Icons.Default.Search else Icons.Default.Close,
                                 contentDescription = "Zoom",
                                 tint = if (!expanded) Color(0xFF0064FF) else Color.Red,
-                                modifier = Modifier.size(40.dp)
+                                modifier = Modifier.size(35.dp)
+                            )
+                        }
+                        // Icono para añadir el marcador a favoritos
+                        IconButton(
+                            onClick = {
+                                coroutineScope.launch {
+                                    mapViewModel.toggleFavorite(marker.id)
+                                }
+                            },
+                            modifier = Modifier.padding(top = 6.dp)
+                        ) {
+                            Icon(
+                                imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+                                contentDescription = "Favoritos",
+                                tint = if (isFavorite) Color.Red else Color.Gray,
+                                modifier = Modifier.size(28.dp)
                             )
                         }
                     }
