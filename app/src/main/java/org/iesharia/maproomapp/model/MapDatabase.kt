@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase
 import org.iesharia.maproomapp.model.dao.*
 import org.iesharia.maproomapp.model.entities.*
 
-@Database(entities = [Marker::class, MarkerType::class, Favorite::class], version = 4)
+@Database(entities = [Marker::class, MarkerType::class, Favorite::class], version = 6)
 abstract class MapDatabase : RoomDatabase() {
 
     abstract fun markerDao(): MarkerDao
