@@ -123,7 +123,7 @@ fun MainApp(mapViewModel: MapViewModel) {
                             color = Color(0xD0000000),
                             shape = RoundedCornerShape(8.dp)
                         )
-                        .padding(16.dp),
+                        .padding(12.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     // Título del marcador
@@ -141,7 +141,7 @@ fun MainApp(mapViewModel: MapViewModel) {
                         text = it.snippet,
                         color = Color(0xFFFFC107),
                         fontSize = 20.sp,
-                        modifier = Modifier.padding(top = 4.dp, bottom = 8.dp)
+                        modifier = Modifier.padding(bottom = 6.dp)
                     )
 
                     // Descripción (si existe)
@@ -157,7 +157,7 @@ fun MainApp(mapViewModel: MapViewModel) {
                     var expanded by remember { mutableStateOf(false) }
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        horizontalArrangement = Arrangement.SpaceAround
                     ) {
                         // Icono para ampliar el lugar del marcador
                         IconButton(
@@ -166,7 +166,7 @@ fun MainApp(mapViewModel: MapViewModel) {
                                     marker.latitude.toDouble(),
                                     marker.longitude.toDouble()
                                 )
-                                cameraState.zoom = if (expanded) 14.5 else 18.0
+                                cameraState.zoom = if (expanded) 15.0 else 20.0
                                 expanded = !expanded
                             },
                             modifier = Modifier.padding(top = 6.dp)
@@ -175,7 +175,7 @@ fun MainApp(mapViewModel: MapViewModel) {
                                 imageVector = if (!expanded) Icons.Default.Search else Icons.Default.Close,
                                 contentDescription = "Zoom",
                                 tint = if (!expanded) Color(0xFF0064FF) else Color.Red,
-                                modifier = Modifier.size(35.dp)
+                                modifier = Modifier.size(30.dp)
                             )
                         }
                         // Icono para añadir el marcador a favoritos
