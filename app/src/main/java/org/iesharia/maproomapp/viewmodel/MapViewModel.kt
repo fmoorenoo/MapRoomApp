@@ -2,14 +2,12 @@ package org.iesharia.maproomapp.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.iesharia.maproomapp.model.entities.*
 import org.iesharia.maproomapp.model.dao.*
-import kotlin.collections.forEach
 
 class MapViewModel(
     private val markerDao: MarkerDao,
@@ -75,24 +73,5 @@ class MapViewModel(
 
     suspend fun isFavorite(markerId: Int): Boolean {
         return favoriteDao.isFavorite(markerId)
-    }
-
-    // Función para insertar nuevos marcadores
-    private fun insertMarkers() {
-        // Lista de marcadores a añadir
-        val markers = listOf(
-            Marker(
-                name = "Ejemplo",
-                latitude = "00",
-                longitude = "00",
-                markerTypeId = 1,
-                description = "Una descripción"
-            ),
-        )
-        CoroutineScope(Dispatchers.IO).launch {
-            markers.forEach { marker ->
-                markerDao.insert(marker)
-            }
-        }
     }
 }
