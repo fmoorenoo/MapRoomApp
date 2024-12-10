@@ -67,6 +67,24 @@
                 longitude = "2.3277286340633756",
                 markerTypeId = 5,
             ),
+            Marker(
+                name = "Le Soufflé",
+                latitude = "48.866481538981134",
+                longitude = "2.3264340457385897",
+                markerTypeId = 2,
+            ),
+            Marker(
+                name = "Sphere",
+                latitude = "48.874272541924135",
+                 longitude = "2.316934451643696",
+                 markerTypeId = 2,
+            ),
+            Marker(
+                            name = "Musée du Louvre",
+                            latitude = "48.86080554611698",
+                            longitude = "2.3377324691774675",
+                            markerTypeId = 7,
+                        ),
         )
         CoroutineScope(Dispatchers.IO).launch {
             markers.forEach { marker ->
